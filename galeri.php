@@ -79,7 +79,7 @@ $galleryFiles = $conn->query("SELECT * FROM galeri ORDER BY created_at DESC");
 <body>
     <header>
         <div class="logo">
-            <img src="assets/logo.jpg" alt="Logo SMAN 2 Batu">
+            <img src="assets/logo/logo.jpg" alt="Logo SMAN 2 Batu">
         </div>
         <nav>
             <ul>
