@@ -1,50 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../app/PengumumanLogic.php';
 
-class PengumumanTest extends TestCase
+final class PengumumanTest extends TestCase
 {
-    public function testJudulKosong()
+    #[Test]
+    public function testJudulKosong(): void
     {
-        $this->assertEquals("Judul tidak boleh kosong.", 
+        $this->assertEquals(
+            "Judul tidak boleh kosong.",
             validatePengumuman("", "Isi")
         );
     }
 
-    public function testJudulKurangDari5()
+    #[Test]
+    public function testJudulKurangDari5(): void
     {
-        $this->assertEquals("Judul minimal 5 karakter.", 
+        $this->assertEquals(
+            "Judul minimal 5 karakter.",
             validatePengumuman("Abc", "Isi")
         );
     }
 
-    public function testJudulLebihDari100()
+    #[Test]
+    public function testJudulLebihDari100(): void
     {
         $judul = str_repeat("A", 101);
-        $this->assertEquals("Judul maksimal 100 karakter.", 
+
+        $this->assertEquals(
+            "Judul maksimal 100 karakter.",
             validatePengumuman($judul, "Isi")
         );
     }
 
-    public function testJudulHanyaAngka()
+    #[Test]
+    public function testJudulHanyaAngka(): void
     {
-        $this->assertEquals("Judul tidak boleh hanya berisi angka.", 
+        $this->assertEquals(
+            "Judul tidak boleh hanya berisi angka.",
             validatePengumuman("12345", "Isi")
         );
     }
 
-    public function testIsiKosong()
+    #[Test]
+    public function testIsiKosong(): void
     {
-        $this->assertEquals("Isi pengumuman tidak boleh kosong.", 
+        $this->assertEquals(
+            "Isi pengumuman tidak boleh kosong.",
             validatePengumuman("Judul Valid", "")
         );
     }
 
-    public function testValid()
+    #[Test]
+    public function testValid(): void
     {
-        $this->assertEquals("OK", 
+        $this->assertEquals(
+            "OK",
             validatePengumuman("Judul valid", "Isi valid")
         );
     }
