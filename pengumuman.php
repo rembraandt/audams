@@ -20,10 +20,23 @@ if (isset($_SESSION['user']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $foto = null;
     $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
-    // 🔹 Validasi manual: jika judul kosong
+    // 🔹 Validasi manual: jika judul kosong atau panjang tidak sesuai
     if ($judul == "") {
         $errorMessage = "Judul tidak boleh kosong.";
-    } else {
+    } elseif (strlen($judul) < 5) {
+        $errorMessage = "Judul minimal 5 karakter.";
+    } elseif (strlen($judul) > 100) {
+        $errorMessage = "Judul maksimal 100 karakter.";
+    } 
+    // 🔹 Tambahan: validasi judul tidak boleh hanya angka
+    elseif (preg_match('/^[0-9]+$/', $judul)) {
+        $errorMessage = "Judul tidak boleh hanya berisi angka.";
+    } 
+    // 🔹 Tambahan: validasi isi pengumuman wajib diisi
+    elseif ($isi == "") {
+        $errorMessage = "Isi pengumuman tidak boleh kosong.";
+    } 
+    else {
         // Proses upload foto
         if (!empty($_FILES['foto']['name'])) {
             $targetDir = "uploads/";
